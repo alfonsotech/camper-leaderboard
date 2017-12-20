@@ -11,9 +11,6 @@ class App extends Component {
       allTimeCampers: [],
       currentView: 'recentCampers'
     }
-    // this.componentWillMount = this.componentWillMount.bind(this)
-    // this.fetchRecentCampers = this.fetchRecentCampers.bind(this)
-    // this.fetchAllTimeCampers = this.fetchAllTimeCampers.bind(this)
   }
 
   //this function will run once before the first render of the component
@@ -21,41 +18,33 @@ class App extends Component {
   componentWillMount() {
     //make concurrent requests and set state to response
     axios.all([this.fetchRecentCampers(), this.fetchAllTimeCampers()])
-  .then(axios.spread(function (recentCampers, allTimeCampers) {
-    // Both requests are now complete
-    this.setState({ recentCampers:recentCampers, allTimeCampers:allTimeCampers })
-  }))
-
-
-
-    // axios.all([this.fetchRecentCampers(), this.fetchAllTimeCampers()])
-    // .then(axios.spread(function(recentCampers, allTimeCampers) {
-    //   this.setState({ recentCampers:recentCampers, allTimeCampers:allTimeCampers })
-    // }))
-    // this.fetchRecentCampers();
-    // this.fetchAllTimeCampers();
+    .then(axios.spread( (recentCampers, allTimeCampers) => {
+      // Both requests are now complete
+      this.setState({
+        recentCampers: recentCampers.data,
+        allTimeCampers: allTimeCampers.data
+      })
+    }))
   }
 
   fetchRecentCampers() {
     return axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
-    // .then(function(recentCampers) {
-    //   this.setState({ recentCampers:recentCampers })
-    // })
   }
 
   fetchAllTimeCampers() {
     return axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')
-    // .then(function(allTimeCampers) {
-    //   this.setState({ allTimeCampers:allTimeCampers })
-    // })
   }
 
-
+  changeView(currentView) {
+    this.setState({currentView})
+  }
 
   render() {
     return (
       <div className="App">
-        <h1>Hello World</h1>
+        <h1>{`Viewing Top: ${this.state.currentView}`}</h1>
+        <button onClick={() => this.changeView('recentCampers')}>Recent</button>
+        <button onClick={() => this.changeView('allTimeCampers')}>All Time</button>
       </div>
     );
   }
