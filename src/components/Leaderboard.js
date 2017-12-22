@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
+import Spinner from './Spinner'
 import CamperTable from './CamperTable'
 import './Leaderboard.css';
 
@@ -41,7 +42,11 @@ class Leaderboard extends Component {
     this.setState({currentView})
   }
 
+
   render() {
+    if( (!this.state.recentCampers.length === 0) && (!this.state.fetchAllTimeCampers.length === 0) ) {
+      return <Spinner />
+    }
     return (
       <div className="Leaderboard">
 
