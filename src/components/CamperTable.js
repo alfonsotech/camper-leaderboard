@@ -20,15 +20,15 @@ const CamperTable = ({campers}) => {
   return (
     <div className="camper-table">
     <Table>
-    <TableHeader adjustForCheckbox="true">
+    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
-        <TableHeaderColumn>ID</TableHeaderColumn>
+        <TableHeaderColumn>Rank</TableHeaderColumn>
         <TableHeaderColumn>Usernname</TableHeaderColumn>
         <TableHeaderColumn>Last 30 Days</TableHeaderColumn>
         <TableHeaderColumn>All Time Points</TableHeaderColumn>
       </TableRow>
     </TableHeader>
-    <TableBody>
+    <TableBody stripedRows={true} showRowHover={true}>
       {Items}
     </TableBody>
   </Table>
