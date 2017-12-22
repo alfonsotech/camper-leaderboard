@@ -5,10 +5,10 @@ import {
 } from 'material-ui/Table'
 import './Camper.css'
 
-const Camper = ({camper, number}) => {
+const Camper = ({camper, number, ...otherProps }) => {
 
     return (
-      <TableRow>
+      <TableRow {...otherProps} className="table-row">
         <TableRowColumn>{number}</TableRowColumn>
         <TableRowColumn><a href={`https://freecodecamp.com/${camper.username}`} target="_blank">{camper.username}</a></TableRowColumn>
         <TableRowColumn>{camper.recent}</TableRowColumn>
