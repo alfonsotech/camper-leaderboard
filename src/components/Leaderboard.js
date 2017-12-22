@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import './App.css';
+import RaisedButton from 'material-ui/RaisedButton'
+import CamperTable from './CamperTable'
+import './Leaderboard.css';
 
-class App extends Component {
+class Leaderboard extends Component {
 
   constructor(props) {
     super(props)
@@ -41,13 +43,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>{`Viewing Top: ${this.state.currentView}`}</h1>
-        <button onClick={() => this.changeView('recentCampers')}>Recent</button>
-        <button onClick={() => this.changeView('allTimeCampers')}>All Time</button>
+      <div className="Leaderboard">
+
+          <h1>{`Viewing Top  ${this.state.currentView}`}</h1>
+          <RaisedButton onClick={() => this.changeView('recentCampers')} label="Recent" className='header-button' />
+          <RaisedButton onClick={() => this.changeView('allTimeCampers')} label="All Time" className='header-button' />
+          <CamperTable campers={this.state[this.state.currentView]} />
       </div>
     );
   }
 }
 
-export default App;
+export default Leaderboard;
